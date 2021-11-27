@@ -24,6 +24,10 @@ def pairs_even_odd(xs):
     for even, odd in zip(evens, odds):
         yield even, odd
 
+def pairs_grouper(xs):
+    args = [iter(xs)] * 2
+    return zip(*args)
+
 def benchmark(M):
     N = 10000
     target_functions = [
@@ -31,6 +35,7 @@ def benchmark(M):
         'pairs_index_access',
         'pairs_slice_copy',
         'pairs_even_odd',
+        'pairs_grouper',
     ]
     for funcname in target_functions:
         stmt = f'xs = list(range({M})); list({funcname}(xs))'
