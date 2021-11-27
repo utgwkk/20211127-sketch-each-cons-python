@@ -7,7 +7,7 @@ def pairs_append_yield(xs):
         buf.append(x)
         if len(buf) >= 2:
             yield tuple(buf)
-            buf = []
+            buf.clear()
 
 def pairs_index_access(xs):
     for i in range(len(xs) // 2):
