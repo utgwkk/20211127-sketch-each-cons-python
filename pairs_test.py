@@ -1,6 +1,6 @@
 import unittest
 
-from pairs import pairs_append_yield, pairs_even_odd, pairs_index_access, pairs_slice_copy, pairs_grouper
+from pairs import pairs_append_yield, pairs_even_odd, pairs_index_access, pairs_slice_copy, pairs_grouper, pairs_index_access_iter
 
 class TestPairsFunction(unittest.TestCase):
     def test_pairs_append_yield(self):
@@ -24,6 +24,15 @@ class TestPairsFunction(unittest.TestCase):
     def test_pairs_index_access(self):
         xs = [1, 2, 3, 4, 5, 6]
         gen = pairs_index_access(xs)
+        self.assertTupleEqual(next(gen), (1, 2))
+        self.assertTupleEqual(next(gen), (3, 4))
+        self.assertTupleEqual(next(gen), (5, 6))
+        with self.assertRaises(StopIteration):
+            next(gen)
+
+    def test_pairs_index_access_iter(self):
+        xs = [1, 2, 3, 4, 5, 6]
+        gen = pairs_index_access_iter(xs)
         self.assertTupleEqual(next(gen), (1, 2))
         self.assertTupleEqual(next(gen), (3, 4))
         self.assertTupleEqual(next(gen), (5, 6))

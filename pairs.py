@@ -13,6 +13,28 @@ def pairs_index_access(xs):
     for i in range(len(xs) // 2):
         yield xs[2 * i], xs[2 * i + 1]
 
+class PairsIterator:
+    def __init__(self, xs):
+        self.xs = xs
+        self.index = 0
+        self.max_index = len(xs) // 2
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        i = self.index
+        if i >= self.max_index:
+            raise StopIteration()
+
+        value = self.xs[2 * i], self.xs[2 * i + 1]
+
+        self.index += 1
+        return value
+
+def pairs_index_access_iter(xs):
+    return PairsIterator(xs)
+
 def pairs_slice_copy(xs):
     for _ in range(len(xs) // 2):
         yield tuple(xs[:2])
@@ -33,6 +55,7 @@ def benchmark(M):
     target_functions = [
         'pairs_append_yield',
         'pairs_index_access',
+        'pairs_index_access_iter',
         'pairs_slice_copy',
         'pairs_even_odd',
         'pairs_grouper',
